@@ -1,0 +1,103 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+    <!-- Header -->
+    <header id="header">
+        <div id="branding">
+            <h1 id="site-name">
+                <a href="/admin/">Boutiqaat</a>
+            </h1>
+        </div>
+        <div id="user-tools">
+            Welcome,
+            <strong>{{user}}</strong>.
+            <a href="/admin/">View site</a> /
+            <a href="/admin/logout/">Log out</a>
+        </div>
+    </header>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 align='center'> Celebrity Product Mapping Preview</h2>
+                <table id="customers" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th> User </th>
+                            <th> Celebrity </th>
+                            <th> Generic </th>
+                            <th> SKU Ids </th>
+                            <th> Label Ids </th>
+                            <th> Event Portal </th>
+                            <th> Event Type </th>
+                            <th> Event Class </th>
+                            <th> Total Posts </th>
+                            <th> BQ Posts </th>
+                            <th> Event Date </th>
+                            <th> Event Time</th>
+                            <th> Remark </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in listData %}
+                        <tr align="center">
+                            <td>{{v.12}}</td>
+                            <td>{{v.1}}</td>
+                            <td>{{v.7}}</td>
+                            <td>{{v.9}}</td>
+                            <td>{{v.8}}</td>
+                            <td>{{v.4}}</td>
+                            <td>{{v.6}}</td>
+                            <td>{{v.2}}</td>
+                            <td>{{v.11}}</td>
+                            <td>{{v.0}}</td>
+                            <td>{{v.3}}</td>
+                            <td>{{v.5}}</td>
+                            <td>{{v.10}}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+                <br />
+                <form action="/events/success/" method="POST">
+                    {% csrf_token %} {% for v in listData %}
+                    <input type="hidden" id="did" name="data" value="{{listData}}" />
+                    <input type="hidden" name="user" value='{{v.12}}' />
+                    <input type="hidden" name="celebrityname" value='{{v.1}}' />
+                    <input type="hidden" name="genericname" value={{v.7}} />
+                    <input type="hidden" name="productidname" value='{{v.9}}' />
+                    <input type="hidden" name="labelidname" value='{{v.8}}' />
+                    <input type="hidden" name="eventportalname" value='{{v.4}}' />
+                    <input type="hidden" name="eventtypename" value='{{v.6}}' />
+                    <input type="hidden" name="eventclassname" value='{{v.2}}' />
+                    <input type="hidden" name="total_post" value='{{v.11}}' />
+                    <input type="hidden" name="bq_post" value='{{v.0}}' />
+                    <input type="hidden" name="eventdate" value='{{v.3}}' />
+                    <input type="hidden" name="eventtime" value='{{v.5}}' />
+                    <input type="hidden" name="remark" value='{{v.10}}' /> {% endfor %}
+                    <input type="submit" class="btn btn-success" value="Save Data" onsubmit="getData()" />
+                </form>
+                <br />
+                <form action="/admin/events/celebritymapping/add/" method="POST">
+                    {% csrf_token %} <input type="submit" class="btn btn-warning" value="Back" />
+                </form>
+            </div>
+        </div>
+    </main>
+    </div>
+</body>
+
+</html>
+
+<script>

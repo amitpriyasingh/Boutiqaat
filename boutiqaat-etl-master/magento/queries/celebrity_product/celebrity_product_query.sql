@@ -1,0 +1,28 @@
+SELECT
+    product_id,
+    celebrity_id,
+    ad_number,
+    ad_date,
+    product_entity_id,
+    website_id,
+    is_exclusive,
+    boutique_price,
+    commission,
+    max_order,
+    reorder_qty,
+    celebrity_sale,
+    grn_number,
+    product_status,
+    product_mapping_status,
+    updated_by,
+    first_online_date,
+    sort_order,
+    created_at,
+    updated_at,
+    type_id,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(child_product), '\r', ''),'\n',''),'\t',''),'\"', '') as child_product,
+    product_state,
+    is_edited,
+    available_balance
+FROM boutiqaat_v2.celebrity_product
+WHERE \$CONDITIONS

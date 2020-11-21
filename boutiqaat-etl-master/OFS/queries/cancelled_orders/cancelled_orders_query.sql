@@ -1,0 +1,28 @@
+SELECT
+    Id,
+    ItemId,
+    InsertedOn,
+    CancelledDate,
+    ReadyForArchive,
+    InsertedBy,
+    UpdatedOn,
+    UpdatedBy,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(Reason), '\r', ''),'\n',''),'\t',''),'\"', '') as Reason,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(Notes), '\r', ''),'\n',''),'\t',''),'\"', '') as Notes,
+    SourceSystem,
+    ItemNo,
+    Sync,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(ErrorMessage), '\r', ''),'\n',''),'\t',''),'\"', '') as ErrorMessage,
+    RetryCount,
+    IsSyncForWMS,
+    SyncDatetimeForWMS,
+    RetryCountForWMS,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(ErrorMessageForWMS), '\r', ''),'\n',''),'\t',''),'\"', '') as ErrorMessageForWMS,
+    CancelType,
+    IsSyncForNAV,
+    SyncDatetimeForNAV,
+    RetryCountForNAV,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(ErrorMessageForNAV), '\r', ''),'\n',''),'\t',''),'\"', '') as ErrorMessageForNAV,
+    WebOrderNo
+FROM OFS.CancelledOrders
+WHERE \$CONDITIONS

@@ -1,0 +1,28 @@
+SELECT 
+    Id as id,
+    WebOrderNo as web_order_no,
+    CustomerId as customer_id,
+    AddressDetailType as address_detail_type,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(FirstName), '\r', ''),'\n',''),'\t',''),'\"', '') as first_name,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(MiddleName), '\r', ''),'\n',''),'\t',''),'\"', '') as middle_name,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(City), '\r', ''),'\n',''),'\t',''),'\"', '') as city,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(PhoneNo), '\r', ''),'\n',''),'\t',''),'\"', '') as phone_no,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(AlternatePhoneNo), '\r', ''),'\n',''),'\t',''),'\"', '') as alternate_phoneno,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(PostCode), '\r', ''),'\n',''),'\t',''),'\"', '') as post_code,
+    AddressType as address_type,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(State), '\r', ''),'\n',''),'\t',''),'\"', '') as state,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(Country), '\r', ''),'\n',''),'\t',''),'\"', '') as country,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(EmailId), '\r', ''),'\n',''),'\t',''),'\"', '') as email_id,
+    ReadyForArchive as ready_for_archive,
+    OrderDate as order_date,
+    InsertedBy as inserted_by,
+    InsertedOn as inserted_on,
+    UpdatedOn as updated_on,
+    UpdatedBy as updated_by,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(Region), '\r', ''),'\n',''),'\t',''),'\"', '') as region,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(LastName), '\r', ''),'\n',''),'\t',''),'\"', '') as last_name,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(TelephoneCode), '\r', ''),'\n',''),'\t',''),'\"', '') as telephone_code,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(AddressId), '\r', ''),'\n',''),'\t',''),'\"', '') as address_id,
+    REPLACE(REPLACE(REPLACE(REPLACE(TRIM(UpdateAddress), '\r', ''),'\n',''),'\t',''),'\"', '') as update_address
+FROM OFS.InboundOrderAddress
+WHERE \$CONDITIONS

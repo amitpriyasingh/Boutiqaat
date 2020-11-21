@@ -1,0 +1,437 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+ <html>
+ {% csrf_token %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Update</title>
+    <style>
+        #customers {
+            table-layout:auto;
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 1px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            text-align: center;
+            background-color: #6495ED;
+            color: white;
+        }
+        .button {
+            background-color: #008CBA; /* Blue */
+            border: none;
+            color: white;
+            padding: 10px 22px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+           
+    </style>
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-confirmation2/dist/bootstrap-confirmation.min.js"></script>
+
+    <script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+
+    <style>
+    .bootstrap-select.fit-width{width: 100% !important;}
+    .bootstrap-select{display: block;width: 100% !important; font-size: 1rem;line-height: 1.5;
+    color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;
+    border-radius: .25rem; transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
+    .bootstrap-select .dropdown-menu{min-width: 100% !important;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="/events/static/admin/css/timepicker.min.css" />
+    <link rel="stylesheet" type="text/css" href="/events/static/admin/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/events/static/admin/css/dashboard.css" />
+
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/events/static/admin/css/responsive.css" />
+    <meta name="robots" content="NONE,NOARCHIVE" />
+  </head>
+
+  <body class=" dashboard" data-admin-utc-offset="0">
+
+<!-- Header -->
+    <div id="header">
+        <div id="branding">
+            <h1 id="site-name"><a href="/admin/">Boutiqaat</a></h1>
+        </div>
+        <div id="user-tools">
+            Welcome,
+            <strong>{{user}}</strong>.
+            <a href="/admin/">View site</a> /
+            <a href="/admin/password_change/">Change password</a> /
+            <a href="/admin/logout/">Log out</a>
+        </div>
+    </div>
+    <div class="breadcrumbs">
+        <a href="/admin/">Home</a>
+        &rsaquo; <a href="/admin/events/">Events</a>
+        &rsaquo; Events
+    </div>
+</body>
+
+<br />
+
+  <body>
+    <div class="container">
+      <p align="center"><strong>UPDATE PANEL</strong></p>
+      <div class="col-md-4">
+        <table>
+            <tr>
+                <td>
+                  <table align="left">
+                    <tr>
+                      <div class="col-md-8">
+                        <td colspan="2"><h4 align="center">Your Saved Data</h1></td>
+                      </div>
+                    </tr>
+                    <tr>
+                      <div class="col-md-8">
+                        <td><label class="required" for="id_user">User:</label></td>
+                        <td> <select name="user" required id="id_user" class="form-control selectpicker">
+                          <option value="{{user_name}}" selected>{{user_name}}</option>
+                        </select></td>
+                      </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Celebrity:</label></td>
+                                <td><select id="cid" name="celebrityname" class="form-control selectpicker">
+                                <!-- select all celebrity from data base and display it -->
+                                    <option value="{{celebrity_name}}">{{celebrity_name}}</option>
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Generic:</label></td>
+                                <td><select id="gid" name="genericname" class="form-control selectpicker">
+                                    <!-- select Generic from data base and display it -->
+                                    <option value="{{generic}}">{{generic}}</option>
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Item Label:</label></td>
+                               <td><select name="labelname" id="id_label" class="form-control selectpicker">
+                                      <option value="{{labelid}}">{{labelid}}</option>
+                                    </select>
+                                </td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">SKU(Optional):</label></td>
+                                <td><select name="productidname" id="getproductid" class="form-control selectpicker">
+                                      <option value="{{skuid}}">{{skuid}}</option>
+                                    </select>
+                                </td>
+                        </div>
+                    </tr>
+                    
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Channel:</label></td>
+                               <td><select id="eventportal"  name="eventportalname" class="form-control selectpicker">
+                                        <!-- select all event protals from data base and display it -->
+                                        <option value="{{event_portal}}">{{event_portal}}</option>
+                                    </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Type Of Snap:</label></td>
+                                <td><select id="eventtype" name="eventtypename" class="form-control selectpicker">
+                                        <!-- select all celebrity from data base and display it -->
+                                    <option value="{{event_type}}">{{event_type}}</option>
+                                    </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Content Type:</label></td>
+                                <td><select id="eventclass" name="eventclassname" class="form-control selectpicker">
+                                        <!-- select all eventclass from data base and display it -->
+                                        <option value="{{event_class}}">{{event_class}}</option>
+                                    </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Total Posts:</label></td>
+                                <td><select id="eventclass" name="eventclassname" class="form-control selectpicker"><option value="{{total_post}}">{{total_post}}</option></select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">BQ Posts:</label></td>
+                                <td><select id="eventclass" name="eventclassname" class="form-control selectpicker"><option value="{{bq_post}}">{{bq_post}}</option></select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                            <td><label class="required" for="id_user">Event Date:</label></td>
+                            <td>
+                                <label class="required" id="d">{{event_date}}-</label>
+                                <label class="required" id="t">{{event_time}}</label>
+                            </td>
+                        </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Remark:</label></td>
+                                <td>
+                                    <textarea name="remark" id="id_remarks" cols="40" rows="10">{{remark}}</textarea></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <form method='POST' action="/admin/events/eventslabeldetails/">
+                            {% csrf_token %}
+                        <td><input type='hidden' name='idName' value='{{celebrityMappingIDforUpdate}}' /></td>
+                        <td><input align="center" type="submit" class="button" value="Go Back"></form></td>
+                    </tr>
+                </table>
+            </td>
+            <td></td>
+            <td>
+                <form method="POST" id="multiple_select_form" name="formname" action="/events/updateSuccess/" onsubmit="return validateForm()">
+                {% csrf_token %}
+                    <table align="left">
+                        <tr>
+                            <div class="col-md-8">
+                            <td colspan="2"><h4 align="center">Please Enter Data For Update</h4></td>
+                            </div>
+                        </tr>
+                        <tr>
+                          <div class="col-md-8">
+                            <td><label class="required" for="id_user">User:</label></td>
+                            <td> <select name="user" required id="id_user" class="form-control selectpicker">
+                              <option value="{{user_name}}" selected>{{user_name}}</option>
+                            </select></td>
+                          </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Celebrity:</label></td>
+                                    <td><select id="cid" name="celebrityname" class="form-control selectpicker" data-width="fit" onchange="getcelebritydata(this.value)" required>
+                                    <!-- select all celebrity from data base and display it -->
+                                        <option value="{{celebrity_name}}">{{celebrity_name}}</option>
+                                    </select></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Generic:</label></td>
+                                    <td><select id="gid" name="genericname" class="form-control selectpicker" data-width="fit" required>
+                                        <!-- select Generic from data base and display it -->
+                                        <option value=''>select</option>
+                                        <option value="Generic">Generic</option>
+                                        <option value="SKU Specific">SKU Specific</option>
+                                    </select></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Item Label:</label></td>
+                                   <td><select name="labelname" id="id_label" class="form-control selectpicker" data-live-search="true">
+                                          {% if labelidForUpdate %}
+                                                    <option value=''>select</option> 
+                                                  {% for lid in labelidForUpdate %}
+                                                        <option value="{{lid}}">{{lid}}</option>
+                                                  {%endfor%}
+                                            {% else %}
+                                              <option value=''>None</option>
+                                          {% endif %}
+                                        </select>
+                                    </td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">SKU(Optional):</label></td>
+                                    <td><select name="productidname" id="getproductid" class="form-control selectpicker" data-live-search="true">
+                                          {% if productidForUpdate %} 
+                                                    <option value=''>select</option>
+                                                  {% for pid in productidForUpdate %}
+                                                        <option value="{{pid}}">{{pid}}</option>
+                                                  {%endfor%}
+                                            {% else %}
+                                              <option value=''>None</option>
+                                          {% endif %}
+                                        </select>
+                                    </td>
+                            </div>
+                        </tr>
+                        
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Channel:</label></td>
+                                   <td><select id="eventportal"  name="eventportalname" class="form-control selectpicker" data-width="fit" required>
+                                            <!-- select all event protals from data base and display it -->
+                                            <option value="">Select</option>
+                                                {% for ep in portalForUpdate %}
+                                                    <option value="{{ep}}">{{ep}}</option>
+                                                {%endfor%}
+                                        </select></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Type Of Snap:</label></td>
+                                    <td><select id="eventtype" name="eventtypename" class="form-control selectpicker" data-width="fit" required>
+                                            <!-- select all celebrity from data base and display it -->
+                                        <option value="">Select</option>
+                                            {% for et in eventForUpdate %}
+                                                <option value="{{et}}">{{et}}</option>
+                                            {%endfor%}
+                                        </select></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Content Type:</label></td>
+                                    <td><select id="eventclass" name="eventclassname" class="form-control selectpicker" data-width="fit" required>
+                                            <!-- select all eventclass from data base and display it -->
+                                            <option value="">Select</option>
+                                            {% for ec in eventclassForUpdate %}
+                                                <option value="{{ec}}">{{ec}}</option>
+                                            {%endfor%}
+                                        </select></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Total Posts:</label></td>
+                                    <td><input class="form-control" type="number" required id="tpid" name="total_post" value=""></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">BQ Posts:</label></td>
+                                    <td><input class="form-control" type="number" required id= "bqid" name="bq_post" value=""></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td><label class="required" for="id_user">Event Date:</label></td>
+                            <td>
+                                <input type="date" name="date" id="datepicker" required />
+                                <input type="text" id="time" name="time" placeholder="Time" required />
+                            </td>
+                        </tr>
+                        <tr>
+                            <div class="col-md-8">
+                                    <td><label class="required" for="id_user">Remark:</label></td>
+                                    <td><textarea name="remark" id="id_remarks" cols="40" rows="10"></textarea></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <td><input type='hidden' name='idName' value='{{celebrityMappingIDforUpdate}}' /></td>
+                             <td><input type="submit" id="submitid" value="Update" class="button" name="_save"  /></td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>  
+  </div>
+</div>
+</body> 
+
+</html>
+<script>
+var timepicker = new TimePicker('time', {
+  lang: 'en',
+  theme: 'dark'
+});
+timepicker.on('change', function(evt) {
+  
+  var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+  evt.element.value = value;
+
+});
+
+function validateForm() {
+    var x = document.forms["formname"]["productidname"].value;
+    var y = document.forms["formname"]["labelname"].value;
+    var total_post = document.forms["formname"]["total_post"].value;
+    var totalpost = parseInt(total_post, 10);
+    var bq_post = document.forms["formname"]["bq_post"].value;
+    var bqpost = parseInt(bq_post, 10);
+    if (x == "" && y=="") {
+        alert("Please select either skuid or label");
+        return false;
+    }
+    if (x != "" && y!="") {
+        alert("You Can Not Select Both SKU & Label");
+        return false;
+    }
+
+    if (bqpost > totalpost ) {
+        alert("BQ Post can not be greater than total post");
+        return false;
+    }
+    if (bqpost <=0 || totalpost <=0){
+        alert("BQ Post or Total Post can not be 0 or negative !");
+        return false;
+    }
+
+    var date = document.forms["formname"]["date"].value;
+    var time = document.forms["formname"]["time"].value;
+    var time = time.split(':')
+    var h = time[0];
+    var m = time[1];
+    var hour = parseInt(h, 10);
+    var minute = parseInt(m, 10);
+    var date = new Date(date);
+    date.setHours(hour,minute);
+    var currentDate = new Date();
+    console.log(date);
+    console.log(currentDate);
+
+    if (date>currentDate)
+    {
+        alert("Please select current or past date & time!");
+        return false;
+    }
+    var lastThreeDay = new Date();
+
+    lastThreeDay.setDate(lastThreeDay.getDate() - 3);
+    console.log(date)
+    console.log(lastThreeDay)
+    if (date<lastThreeDay)
+    {
+        alert("Please Select Maximum Last Three Day Old Data!"); 
+        return false;
+    }
+
+    if (m>60)
+    {
+        alert("Invalid Time!");
+        return false;
+    }
+}
+</script>

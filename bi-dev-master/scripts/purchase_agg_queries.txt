@@ -1,0 +1,479 @@
+###################creation purchase aggregated table
+
+CREATE TABLE purchase_agg(
+
+id                        INT(10) NOT NULL auto_increment,
+st_bill_no                 DECIMAL(15,0),
+st_branch_id                   DECIMAL(15,0),
+st_voucher_time                DATETIME,
+st_supplier_id            DECIMAL(15,0),
+st_supplier_name               VARCHAR(50),
+st_supplier_billno        DECIMAL(15,0),
+st_gate_time                   DATETIME,
+st_invoice1                    DECIMAL(15,0),
+st_invoice2                    DECIMAL(15,0),
+st_purchase_order              DECIMAL(15,0),
+st_line_id                 DECIMAL(15,0),
+st_sku_id                      VARCHAR(30),
+st_sku_name                    VARCHAR(50),
+st_store_id                    DECIMAL(15,0),
+st_sku_price               DECIMAL(20,4),
+st_sku_qty                     DECIMAL(15,0),
+st_sku_unit                DECIMAL(15,0),
+st_sku_qty1                    DECIMAL(15,0),
+st_total                       DECIMAL(20,4),
+
+pr_bill_no                 DECIMAL(15,0),
+pr_branch_id                   DECIMAL(15,0),
+pr_voucher_time                DATETIME,
+pr_supplier_id            DECIMAL(15,0),
+pr_supplier_name               VARCHAR(50),
+pr_supplier_billno        DECIMAL(15,0),
+pr_gate_time                   DATETIME,
+pr_invoice1                    DECIMAL(15,0),
+pr_invoice2                    DECIMAL(15,0),
+pr_purchase_order              DECIMAL(15,0),
+pr_line_id                 DECIMAL(15,0),
+pr_sku_id                      VARCHAR(30),
+pr_sku_name                    VARCHAR(50),
+pr_store_id                    DECIMAL(15,0),
+pr_sku_price               DECIMAL(20,4),
+pr_sku_qty                     DECIMAL(15,0),
+pr_sku_unit                DECIMAL(15,0),
+pr_sku_qty1                    DECIMAL(15,0),
+pr_total                       DECIMAL(20,4),
+
+pi_bill_no                 DECIMAL(15,0),
+pi_branch_id                   DECIMAL(15,0),
+pi_voucher_time                DATETIME,
+pi_supplier_id            DECIMAL(15,0),
+pi_supplier_name               VARCHAR(50),
+pi_supplier_billno        DECIMAL(15,0),
+pi_gate_time                   DATETIME,
+pi_invoice1                    DECIMAL(15,0),
+pi_invoice2                    DECIMAL(15,0),
+pi_purchase_order              DECIMAL(15,0),
+pi_line_id                 DECIMAL(15,0),
+pi_sku_id                      VARCHAR(30),
+pi_sku_name                    VARCHAR(50),
+pi_store_id                    DECIMAL(15,0),
+pi_sku_price               DECIMAL(20,4),
+pi_sku_qty                     DECIMAL(15,0),
+pi_sku_unit                DECIMAL(15,0),
+pi_sku_qty1                    DECIMAL(15,0),
+pi_total                       DECIMAL(20,4),
+
+grn_bill_no                 DECIMAL(15,0),
+grn_branch_id                  DECIMAL(15,0),
+grn_voucher_time               DATETIME,
+grn_supplier_id                DECIMAL(15,0),
+grn_supplier_name              VARCHAR(50),
+grn_supplier_billno       DECIMAL(15,0),
+grn_gate_time                  DATETIME,
+grn_invoice1                   DECIMAL(15,0),
+grn_invoice2                   DECIMAL(15,0),
+grn_purchase_order             DECIMAL(15,0),
+grn_line_id                 DECIMAL(15,0),
+grn_sku_id                          VARCHAR(30),
+grn_sku_name                   VARCHAR(50),
+grn_store_id                   DECIMAL(15,0),
+grn_sku_price               DECIMAL(20,4),
+grn_sku_qty                    DECIMAL(15,0),
+grn_sku_unit                DECIMAL(15,0),
+grn_sku_qty1                   DECIMAL(15,0),
+grn_total                      DECIMAL(20,4),
+
+lpo_bill_no                 DECIMAL(15,0),
+lpo_branch_id                  DECIMAL(15,0),
+lpo_voucher_time               DATETIME,
+lpo_supplier_id                DECIMAL(15,0),
+lpo_supplier_name              VARCHAR(50),
+lpo_supplier_billno       DECIMAL(15,0),
+lpo_gate_time                  DATETIME,
+lpo_invoice1                   DECIMAL(15,0),
+lpo_invoice2                   DECIMAL(15,0),
+lpo_purchase_order             DECIMAL(15,0),
+lpo_line_id                 DECIMAL(15,0),
+lpo_sku_id                          VARCHAR(30),
+lpo_sku_name                   VARCHAR(50),
+lpo_store_id                   DECIMAL(15,0),
+lpo_sku_price               DECIMAL(20,4),
+lpo_sku_qty                    DECIMAL(15,0),
+lpo_sku_unit                DECIMAL(15,0),
+lpo_sku_qty1                   DECIMAL(15,0),
+lpo_total                      DECIMAL(20,4),
+PRIMARY KEY (id)
+);
+ 
+
+######################purchase aggregated updation
+
+
+INSERT INTO purchase_agg(
+st_bill_no,
+st_branch_id,
+st_voucher_time,
+st_supplier_id,
+st_supplier_name,
+st_supplier_billno,
+st_gate_time,
+st_invoice1,
+st_invoice2,
+st_purchase_order,
+st_line_id,
+st_sku_id,
+st_sku_name,
+st_store_id,
+st_sku_price,
+st_sku_qty,
+st_sku_unit,
+st_sku_qty1,
+st_total,
+
+pr_bill_no,
+pr_branch_id,
+pr_voucher_time,
+pr_supplier_id,
+pr_supplier_name,
+pr_supplier_billno,
+pr_gate_time,
+pr_invoice1,
+pr_invoice2,
+pr_purchase_order,
+pr_line_id,
+pr_sku_id,
+pr_sku_name,
+pr_store_id,
+pr_sku_price,
+pr_sku_qty,
+pr_sku_unit,
+pr_sku_qty1,
+pr_total,
+
+pi_bill_no,
+pi_branch_id,
+pi_voucher_time,
+pi_supplier_id,
+pi_supplier_name,
+pi_supplier_billno,
+pi_gate_time,
+pi_invoice1,
+pi_invoice2,
+pi_purchase_order,
+pi_line_id,
+pi_sku_id,
+pi_sku_name,
+pi_store_id,
+pi_sku_price,
+pi_sku_qty,
+pi_sku_unit,
+pi_sku_qty1,
+pi_total,
+
+grn_bill_no,
+grn_branch_id,
+grn_voucher_time,
+grn_supplier_id,
+grn_supplier_name,
+grn_supplier_billno,
+grn_gate_time,
+grn_invoice1,
+grn_invoice2,
+grn_purchase_order,
+grn_line_id,
+grn_sku_id,
+grn_sku_name,
+grn_store_id,
+grn_sku_price,
+grn_sku_qty,
+grn_sku_unit,
+grn_sku_qty1,
+grn_total,
+
+lpo_bill_no,
+lpo_branch_id ,
+lpo_voucher_time,
+lpo_supplier_id,
+lpo_supplier_name,
+lpo_supplier_billno,
+lpo_gate_time,
+lpo_invoice1,
+lpo_invoice2,
+lpo_purchase_order,
+lpo_line_id,
+lpo_sku_id,
+lpo_sku_name,
+lpo_store_id,
+lpo_sku_price,
+lpo_sku_qty,
+lpo_sku_unit,
+lpo_sku_qty1,
+lpo_total 
+)
+
+
+SELECT 
+     ST.BILNO,
+     ST.BRANCHID,
+     ST.VDATE,
+     ST.SUPNO,
+     ST.SUPNAME,
+     ST.SUPBILL,
+     ST.GATETIME,
+     ST.INVOICE1,
+     ST.INVOICE2,
+     ST.PURCHASEORDER,
+     ST.LINEID,
+     ST.SKUID,
+     ST.SKUNAME,
+     ST.STOREID,
+     ST.SKUPRICE,
+     ST.SKUQTY,
+     ST.SKUNIT,
+     ST.SKUQTY1,
+     ST.TOTAL,
+
+     PR.BILNO,
+     PR.BRANCHID,
+     PR.VDATE,
+     PR.SUPNO,
+     PR.SUPNAME,
+     PR.SUPBILL,
+     PR.GATETIME,
+     PR.INVOICE1,
+     PR.INVOICE2,
+     PR.PURCHASEORDER,
+     PR.LINEID,
+     PR.SKUID,
+     PR.SKUNAME,
+     PR.STOREID,
+     PR.SKUPRICE,
+     PR.SKUQTY,
+     PR.SKUNIT,
+     PR.SKUQTY1,
+     PR.TOTAL,
+
+     PI.BILNO,
+     PI.BRANCHID,
+     PI.VDATE,
+     PI.SUPNO,
+     PI.SUPNAME,
+     PI.SUPBILL,
+     PI.GATETIME,
+     PI.INVOICE1,
+     PI.INVOICE2,
+     PI.PURCHASEORDER,
+     PI.LINEID,
+     PI.SKUID,
+     PI.SKUNAME,
+     PI.STOREID,
+     PI.SKUPRICE,
+     PI.SKUQTY,
+     PI.SKUNIT,
+     PI.SKUQTY1,
+     PI.TOTAL,
+
+     GRN.BILNO,
+     GRN.BRANCHID,
+     GRN.VDATE,
+     GRN.SUPNO,
+     GRN.SUPNAME,
+     GRN.SUPBILL,
+     GRN.GATETIME,
+     GRN.INVOICE1,
+     GRN.INVOICE2,
+     GRN.PURCHASEORDER,
+     GRN.LINEID,
+     GRN.SKUID,
+     GRN.SKUNAME,
+     GRN.STOREID,
+     GRN.SKUPRICE,
+     GRN.SKUQTY,
+     GRN.SKUNIT,
+     GRN.SKUQTY1,
+     GRN.TOTAL,
+
+     LPO.BILNO,
+     LPO.BRANCHID,
+     LPO.VDATE,
+     LPO.SUPNO,
+     LPO.SUPNAME,
+     LPO.SUPBILL,
+     LPO.GATETIME,
+     LPO.INVOICE1,
+     LPO.INVOICE2,
+     LPO.PURCHASEORDER,
+     LPO.LINEID,
+     LPO.SKUID,
+     LPO.SKUNAME,
+     LPO.STOREID,
+     LPO.SKUPRICE,
+     LPO.SKUQTY,
+     LPO.SKUNIT,
+     LPO.SKUQTY1,
+     LPO.TOTAL
+          FROM
+          
+               (SELECT    
+               GRN2.BILL_NO            BILNO,
+               GRN2.BRANCH_ID          BRANCHID,
+               GRN1.VOUCHER_TIME       VDATE,
+               GRN1.SUPPLIER_ID        SUPNO,
+               SUP.NAME               SUPNAME,
+               GRN1.SUPPLIER_BILLNO    SUPBILL,
+               GRN1.GATE_TIME          GATETIME,
+               GRN1.INV1               INVOICE1,
+               GRN1.INV2                  INVOICE2,
+               GRN1.PUR_ORDER          PURCHASEORDER,
+               GRN2.LINE_ID            LINEID,
+               GRN2.SKU               SKUID,
+               SKU.SKU_NAME           SKUNAME,
+               GRN2.STORE_ID           STOREID,
+               GRN2.SKU_PRICE          SKUPRICE,
+               GRN2.SKU_QTY            SKUQTY,
+               GRN2.SKU_UNIT           SKUNIT,
+               GRN2.SKU_QTY1           SKUQTY1,
+               GRN2.TOTAL              TOTAL
+
+          FROM ERP_RECEIPT_DETAILS GRN2
+          LEFT JOIN ERP_RECEIPT_HEADER GRN1 ON GRN1.TRANS_CODE = GRN2.TRANS_CODE
+                                                    AND GRN1.BRANCH_ID = GRN2.BRANCH_ID 
+                                                    AND GRN1.BILL_NO = GRN2.BILL_NO
+          INNER JOIN     ERP_SUPPLIERS SUP   ON SUP.ID = GRN1.SUPPLIER_ID
+          INNER JOIN     ERP_SKUs SKU        ON SKU.ID = GRN2.SKU
+
+          WHERE GRN1.TRANS_CODE = 11) LPO
+     LEFT JOIN 
+          (SELECT 
+               GRN2.BILL_NO            BILNO,
+               GRN2.BRANCH_ID          BRANCHID,
+               GRN1.VOUCHER_TIME       VDATE,
+               GRN1.SUPPLIER_ID        SUPNO,
+               SUP.NAME               SUPNAME,
+               GRN1.SUPPLIER_BILLNO    SUPBILL,
+               GRN1.GATE_TIME          GATETIME,
+               GRN1.INV1               INVOICE1,
+               GRN1.INV2                  INVOICE2,
+               GRN1.PUR_ORDER          PURCHASEORDER,
+               GRN2.LINE_ID            LINEID,
+               GRN2.SKU               SKUID,
+               SKU.SKU_NAME           SKUNAME,
+               GRN2.STORE_ID           STOREID,
+               GRN2.SKU_PRICE          SKUPRICE,
+               GRN2.SKU_QTY            SKUQTY,
+               GRN2.SKU_UNIT           SKUNIT,
+               GRN2.SKU_QTY1           SKUQTY1,
+               GRN2.TOTAL              TOTAL
+
+          FROM ERP_RECEIPT_DETAILS GRN2
+          LEFT JOIN ERP_RECEIPT_HEADER GRN1 ON GRN1.TRANS_CODE = GRN2.TRANS_CODE
+                                                    AND GRN1.BRANCH_ID = GRN2.BRANCH_ID 
+                                                    AND GRN1.BILL_NO = GRN2.BILL_NO
+          INNER JOIN     ERP_SUPPLIERS SUP   ON SUP.ID = GRN1.SUPPLIER_ID
+          INNER JOIN     ERP_SKUs SKU        ON SKU.ID = GRN2.SKU
+
+          WHERE GRN1.TRANS_CODE = 81) ST
+          ON   LPO.PURCHASEORDER = ST.BILNO
+          AND LPO.BRANCHID = ST.BRANCHID
+          AND LPO.SKUID = ST.SKUID
+    LEFT JOIN 
+          (SELECT    
+               GRN2.BILL_NO            BILNO,
+               GRN2.BRANCH_ID          BRANCHID,
+               GRN1.VOUCHER_TIME       VDATE,
+               GRN1.SUPPLIER_ID        SUPNO,
+               SUP.NAME               SUPNAME,
+               GRN1.SUPPLIER_BILLNO    SUPBILL,
+               GRN1.GATE_TIME          GATETIME,
+               GRN1.INV1               INVOICE1,
+               GRN1.INV2                  INVOICE2,
+               GRN1.PUR_ORDER          PURCHASEORDER,
+               GRN2.LINE_ID            LINEID,
+               GRN2.SKU               SKUID,
+               SKU.SKU_NAME           SKUNAME,
+               GRN2.STORE_ID           STOREID,
+               GRN2.SKU_PRICE          SKUPRICE,
+               GRN2.SKU_QTY            SKUQTY,
+               GRN2.SKU_UNIT           SKUNIT,
+               GRN2.SKU_QTY1           SKUQTY1,
+               GRN2.TOTAL              TOTAL
+
+          FROM ERP_RECEIPT_DETAILS GRN2
+          LEFT JOIN ERP_RECEIPT_HEADER GRN1 ON GRN1.TRANS_CODE = GRN2.TRANS_CODE
+                                                    AND GRN1.BRANCH_ID = GRN2.BRANCH_ID 
+                                                    AND GRN1.BILL_NO = GRN2.BILL_NO
+          INNER JOIN     ERP_SUPPLIERS SUP   ON SUP.ID = GRN1.SUPPLIER_ID
+          INNER JOIN     ERP_SKUs SKU        ON SKU.ID = GRN2.SKU
+
+          WHERE GRN1.TRANS_CODE = 3) GRN
+          ON   LPO.PURCHASEORDER = GRN.BILNO
+          AND LPO.BRANCHID = GRN.BRANCHID
+          AND LPO.SKUID = GRN.SKUID
+
+    LEFT JOIN 
+          (SELECT    
+               GRN2.BILL_NO            BILNO,
+               GRN2.BRANCH_ID          BRANCHID,
+               GRN1.VOUCHER_TIME       VDATE,
+               GRN1.SUPPLIER_ID        SUPNO,
+               SUP.NAME               SUPNAME,
+               GRN1.SUPPLIER_BILLNO    SUPBILL,
+               GRN1.GATE_TIME          GATETIME,
+               GRN1.INV1               INVOICE1,
+               GRN1.INV2                  INVOICE2,
+               GRN1.PUR_ORDER          PURCHASEORDER,
+               GRN2.LINE_ID            LINEID,
+               GRN2.SKU               SKUID,
+               SKU.SKU_NAME           SKUNAME,
+               GRN2.STORE_ID           STOREID,
+               GRN2.SKU_PRICE          SKUPRICE,
+               GRN2.SKU_QTY            SKUQTY,
+               GRN2.SKU_UNIT           SKUNIT,
+               GRN2.SKU_QTY1           SKUQTY1,
+               GRN2.TOTAL              TOTAL
+
+          FROM ERP_RECEIPT_DETAILS GRN2
+          LEFT JOIN ERP_RECEIPT_HEADER GRN1 ON GRN1.TRANS_CODE = GRN2.TRANS_CODE
+                                                    AND GRN1.BRANCH_ID = GRN2.BRANCH_ID 
+                                                    AND GRN1.BILL_NO = GRN2.BILL_NO
+          INNER JOIN     ERP_SUPPLIERS SUP   ON SUP.ID = GRN1.SUPPLIER_ID
+          INNER JOIN     ERP_SKUs SKU        ON SKU.ID = GRN2.SKU
+
+          WHERE GRN1.TRANS_CODE = 2) PR
+          ON   LPO.PURCHASEORDER = PR.BILNO
+          AND LPO.BRANCHID = PR.BRANCHID
+          AND LPO.SKUID = PR.SKUID
+
+    LEFT JOIN 
+          (SELECT    
+               GRN2.BILL_NO            BILNO,
+               GRN2.BRANCH_ID          BRANCHID,
+               GRN1.VOUCHER_TIME       VDATE,
+               GRN1.SUPPLIER_ID        SUPNO,
+               SUP.NAME               SUPNAME,
+               GRN1.SUPPLIER_BILLNO    SUPBILL,
+               GRN1.GATE_TIME          GATETIME,
+               GRN1.INV1               INVOICE1,
+               GRN1.INV2                  INVOICE2,
+               GRN1.PUR_ORDER          PURCHASEORDER,
+               GRN2.LINE_ID            LINEID,
+               GRN2.SKU               SKUID,
+               SKU.SKU_NAME           SKUNAME,
+               GRN2.STORE_ID           STOREID,
+               GRN2.SKU_PRICE          SKUPRICE,
+               GRN2.SKU_QTY            SKUQTY,
+               GRN2.SKU_UNIT           SKUNIT,
+               GRN2.SKU_QTY1           SKUQTY1,
+               GRN2.TOTAL              TOTAL
+
+          FROM ERP_RECEIPT_DETAILS GRN2
+          LEFT JOIN ERP_RECEIPT_HEADER GRN1 ON GRN1.TRANS_CODE = GRN2.TRANS_CODE
+                                                    AND GRN1.BRANCH_ID = GRN2.BRANCH_ID 
+                                                    AND GRN1.BILL_NO = GRN2.BILL_NO
+          INNER JOIN     ERP_SUPPLIERS SUP   ON SUP.ID = GRN1.SUPPLIER_ID
+          INNER JOIN     ERP_SKUs SKU        ON SKU.ID = GRN2.SKU
+
+          WHERE GRN1.TRANS_CODE = 1) PI 
+          ON   LPO.PURCHASEORDER = PI.BILNO
+          AND LPO.BRANCHID = PI.BRANCHID
+          AND LPO.SKUID = PI.SKUID;

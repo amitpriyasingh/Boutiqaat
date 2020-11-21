@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Celebrity Product Mapping</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    <link href="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div id="branding">
+            <h1 id="site-name">
+                <a href="/admin/">Boutiqaat</a>
+            </h1>
+        </div>
+        <div id="user-tools">
+            Welcome,
+            <strong>{{user}}</strong>.
+            <a href="/admin/">View site</a> /
+            <a href="/admin/logout/">Log out</a>
+        </div>
+    </header>
+    <!-- Container -->
+    <main class="container"><div class="row"><div class=class="col-8">
+        <h1 align="center">Add Events</h1>
+        <form method="POST" id="multiple_select_form" name='formname' action='/events/preview/' onsubmit="return validateForm()">
+            {% csrf_token %}
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">User:</label>
+                <div class="col-9"> 
+                <select class="form-control" name="user" required id="id_user">
+                    <option value="{{user}}" selected>{{user}}</option>
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Celebrity:</label>
+                <div class="col-9"> 
+                    <select id="cid" name="celebrityname" class="form-control selectpicker" data-live-search="true" data-width="fit" onchange="getcelebritydata(this.value)"
+                    required>
+                    <!-- select all celebrity from data base and display it -->
+                    <option value="">Select</option>
+                    {% for c in celebrity %}
+                    <option value="{{c}}">{{c}}</option>
+                    {%endfor%}
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Generic:</label>
+                <div class="col-9"> 
+                    <select id="gid" name="genericname" class="form-control selectpicker" data-width="fit" required>
+                    <!-- select Generic from data base and display it -->
+                    <option value=''>select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">SKU Ids:</label>
+                <div class="col-9"> <select name="productidname" id="getproductid" class="form-control selectpicker" data-live-search="true" data-actions-box="true"
+                    multiple>
+                    <option value="">Select</option>
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Label:</label>
+                <div class="col-9"> <select name="labelname" id="id_label" class="form-control selectpicker" data-live-search="true" data-actions-box="true"
+                    multiple>
+                    <option value="">Select</option>
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Event Portal:</label>
+                <div class="col-9"> <select id="eventportal" name="eventportalname" class="form-control selectpicker" data-width="fit" required>
+                    <!-- select all event protals from data base and display it -->
+                    <option value="">Select</option>
+                    {% for ep in eventportal %}
+                    <option value="{{ep}}">{{ep}}</option>
+                    {%endfor%}
+                </select>
+</div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Event Type:</label>
+                <div class="col-9"> <select id="eventtype" name="eventtypename" class="form-control selectpicker" data-width="fit" required>
+                    <!-- select all celebrity from data base and display it -->
+                    <option value="">Select</option>
+                    {% for et in event_type %}
+                    <option value="{{et}}">{{et}}</option>
+                    {%endfor%}
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Event Class:</label>
+                <div class="col-9"> <select id="eventclass" name="eventclassname" class="form-control selectpicker" data-width="fit" required>
+                    <!-- select all eventclass from data base and display it -->
+                    <option value="">Select</option>
+                    {% for ec in eventclass %}
+                    <option value="{{ec}}">{{ec}}</option>
+                    {%endfor%}
+                </select>
+                </div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Total Posts:</label>
+                <div class="col-9"> <input class="form-control" type="number" required name="total_post" value=""></div>
+            </div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">BQ Posts:</label>
+                <div class="col-9"> <input class="form-control" type="number" required name="bq_post" value=""></div>
+            </div>
+
+
+            <div class="form-row mb-3">
+            <label class="required col-3 text-right" for="id_user">Event Date:</label>
+            <div class="col-5"> <input class="form-control" type="date" name="date" required /></div>
+            <div class="col-4"> <input class="form-control" type="text" id="time" name="time" placeholder="Time" required></div>
+</div>
+
+
+            <div class="form-row mb-3">
+                <label class="required col-3 text-right" for="id_user">Remark:</label>
+                <div class="col-9"> <textarea class="form-control" name="remark" id="id_remarks" cols="40" rows="4"></textarea></div>
+            </div>
+
+
+
+            <input type="submit" id="submitid" value="Preview" class="btn btn-primary" name="_save" />
+
+        
+        </form>
+        <form method="POST" id="multiple_select_form" action="/admin/">
+            {% csrf_token %}
+            <p align="center">
+                <input type="submit" value="Home" class="btn btn-success" name="_save" />
+            </p>
+        </form>
+    </div></div>
+    </main>
+    <!-- Optional JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/timepicker.js/latest/timepicker.min.js"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+    <script>
+
+        function getcelebritydata() {
+            var celebrity = document.getElementById("cid").value;
+            console.log(celebrity)
+
+            $.ajax(
+                {
+                    type: "Get",
+                    url: "/events/getproduct",
+                    data: { 'celebrity': celebrity },
+                    success: function (result) {
+                        $("#getproductid option").remove();
+                        $("#id_label option").remove();
+                        if (result[0].length == 0) {
+                            console.log(result[0])
+                            $("#getproductid").append('<option value=None>None</option>')
+                        }
+                        else {
+
+                            for (var i = result[0].length - 1; i >= 0; i--) {
+                                $("#getproductid").append('<option value=' + result[0][i] + '>' + result[0][i] + '</option>');
+                            }
+                        }
+
+                        if (result[1].length == 0) {
+                            console.log(result[1])
+                            $("#id_label").append('<option value=None>None</option>')
+                        }
+                        else {
+
+                            for (var i = result[1].length - 1; i >= 0; i--) {
+                                $("#id_label").append('<option value=' + result[1][i] + '>' + result[1][i] + '</option>');
+                            }
+                        }
+
+
+                        $(document).ready(function () {
+                            $('.selectpicker').selectpicker();
+                        });
+                        $('#getproductid').addClass('form_control selectpicker');
+                        $('#getproductid').attr('data-live-search', 'true');
+                        $('#getproductid').selectpicker('refresh');
+
+                        $('#id_label').addClass('form_control selectpicker');
+                        $('#id_label').attr('data-live-search', 'true');
+                        $('#id_label').selectpicker('refresh');
+
+                    }
+
+
+                });
+
+        };
+
+        var timepicker = new TimePicker('time', {
+            lang: 'en',
+            theme: 'dark'
+        });
+        timepicker.on('change', function (evt) {
+
+            var value = (evt.hour || '00') + ':' + (evt.minute || '00');
+            evt.element.value = value;
+
+        });
+
+        function validateForm() {
+            var x = document.forms["formname"]["productidname"].value;
+            var y = document.forms["formname"]["labelname"].value;
+            var total_post = document.forms["formname"]["total_post"].value;
+            var totalpost = parseInt(total_post, 10);
+            var bq_post = document.forms["formname"]["bq_post"].value;
+            var bqpost = parseInt(bq_post, 10);
+            if (x == "" && y == "") {
+                alert("Please select either skuid or label");
+                return false;
+            }
+            if (bqpost > totalpost) {
+                alert("BQ Post can not be greater than total post");
+                return false;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

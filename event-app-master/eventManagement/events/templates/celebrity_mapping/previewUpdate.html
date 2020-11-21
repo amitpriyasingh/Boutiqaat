@@ -1,0 +1,186 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+ <html>
+ {% csrf_token %}
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Update</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+  </head>
+
+ <body>
+     <div class="container">
+        <br />
+        <h2 align="center"> Saved Data </h2>
+        <br />
+          <table style="width:100%" align="center">
+              <thead style="background-color:gray;color:white;">
+                <tr>
+                  <th> User </th>
+                  <th> Celebrity </th>
+                  <th> Generic </th>
+                  <th> Product Ids </th>
+                  <th> Event Portal </th>
+                  <th> Event Type </th>
+                  <th> Event Class </th>
+                  <th> Total Posts </th>
+                  <th> BQ Posts </th>
+                  <th> Remarks </th>       
+          </tr>
+              </thead>
+                <tbody align='center'>
+          <tr align="center" >
+              <td >{{user_name}}</td>
+              <td>{{celebrity_name}}</td>
+              <td>{{generic}}</td>
+              <td>{{productids}}</td>
+              <td>{{event_portal}}</td>
+              <td>{{event_type}}</td>
+              <td>{{event_class}}</td>
+              <td>{{total_posts}}</td>
+              <td>{{bq_posts}}</td>
+              <td>{{remarks}}</td>
+        </tr>
+          </tbody> 
+
+    </table>
+  </div>
+</div>
+<body>
+        <br /><br />
+        <div class="container">
+            <br />
+            <h2 align="center"> Please Select Data To Update </h2>
+            <br />
+            <div class="col-md-4">
+                <form method="POST" id="multiple_select_form" action="/events/preview/">
+                  {% csrf_token %}   
+                    <table style="width:100%" align="center">
+                        <thead align="center" style="background-color:gray;color:white;">
+                            <tr>
+                                  <th> User </th>
+                                  <th> Celebrity </th>
+                                  <th> Generic </th>
+                                  <th> Product Ids </th>
+                                  <th> Event Portal </th>
+                                  <th> Event Type </th>
+                                  <th> Event Class </th>
+                                  <th> Total Posts </th>
+                                  <th> BQ Posts </th>
+                                  <th> Remarks </th>
+                        <tbody align='center'>
+                            <tr align="center" >
+                                <td>
+                                    <select id="userid" name="user" class="form-control selectpicker" data-width="fit">
+                                        <option value="{{user}}">{{user_name}}</option>
+                                    </select>
+                                </td>
+
+                                <td>
+                                    <select id="cid" name="celebrityname" class="form-control selectpicker" data-width="fit" onchange="getcelebritydata(this.value)">
+                                        <!-- select all celebrity from data base and display it -->
+                                            <option value="{{celebrity_name}}">{{celebrity_name}}</option>
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    <select id="gid" name="genericname" class="form-control selectpicker" data-width="fit">
+                                    <!-- select Generic from data base and display it -->
+                                        <option value='null'>select</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                      
+                                    </select>
+
+                                </td>
+
+
+                                <td>
+                                    <select name="productidname" id="getproductid" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true"  multiple>
+                                        <option value="1">All</option>
+                                         {% for pid in productidForUpdate %}
+                                                <option value="{{pid}}">{{pid}}</option>
+                                          {%endfor%}
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    <select id="eventportal"  name="eventportalname" class="form-control selectpicker" data-width="fit">
+                                        <!-- select all event protals from data base and display it -->
+                                        <option value="null">Select</option>
+                                            {% for ep in portalForUpdate %}
+                                                <option value="{{ep}}">{{ep}}</option>
+                                            {%endfor%}
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    <select id="eventtype" name="eventtypename" class="form-control selectpicker" data-width="fit">
+                                        <!-- select all celebrity from data base and display it -->
+                                    <option value="null">Select</option>
+                                        {% for et in eventForUpdate %}
+                                            <option value="{{event_type}}">{{et}}</option>
+                                        {%endfor%}
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                    <select id="eventclass" name="eventclassname" class="form-control selectpicker" data-width="fit">
+                                        <!-- select all eventclass from data base and display it -->
+                                        <option value="null">Select</option>
+                                        {% for ec in eventClassForUpdate %}
+                                            <option value="{{event_class}}">{{ec}}</option>
+                                        {%endfor%}
+                                    </select>
+
+                                </td>
+
+                                <td>
+                                      <input type="text" name="total_post" value="">
+
+                                </td>
+
+                                <td>
+                                      <input type="text" name="bq_post" value="">
+
+                                </td>
+                                <td>
+                                      <input type="text" name="remark" value="">
+
+                                </td>
+ 
+                            </tr>
+                        </tbody> 
+                    </table>
+                    <p><input type="submit" value="Preview" onclick="previewdata(this.value)"></p>
+                </form> 
+            <br />
+        </div>
+    </div>        
+  </body>
+
+
+</html>
+<script type="text/javascript">
+
+function previewdata(
+
+  
+
+  )
+
+</script>

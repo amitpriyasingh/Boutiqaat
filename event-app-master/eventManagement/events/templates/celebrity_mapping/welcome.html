@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us" >
+    <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 1px;
+        }
+
+        #customers tr:nth-child(even){background-color: #f2f2f2;}
+
+        #customers tr:hover {background-color: #ddd;}
+
+        #customers th {
+            padding-top: 1px;
+            padding-bottom: 1px;
+            text-align: center;
+            background-color: #6495ED;
+            color: white;
+        }
+        .button {
+            background-color: #008CBA; /* Blue */
+            border: none;
+            color: white;
+            padding: 10px 22px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Celebrity Product Mapping</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+    
+    <link rel="stylesheet" type="text/css" media="screen"
+     href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+
+  </head>
+
+    <body>
+        <!-- Container -->
+        <div id="container">
+            <!-- Header -->
+            <div id="header">
+                <div id="branding">
+                    <h1 id="site-name"><a href="/admin/">Boutiqaat</a></h1>
+                </div>
+                <div id="user-tools">
+                Welcome,
+                <strong>{{user}}</strong>.
+                <a href="/">View site</a> /
+                <a href="/admin/logout/">Log out</a>
+            </div>
+        </div>
+        <!-- END Header -->   
+        <div class="breadcrumbs">
+            <a href="/admin/">Home</a>
+            &rsaquo; <a href="/admin/events/">Events</a>
+            &rsaquo; <a href="/admin/events/events/">Events</a>
+            &rsaquo; Add events
+        </div>
+        <!-- Content -->
+        <div class="container">
+            <h1 align="center">Add Events</h1>
+            <form method="POST" id="multiple_select_form" action="/events/preview/">
+            {% csrf_token %}
+                <table>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">User:</label></td>
+                               <td> <select name="user" required id="id_user">
+                                        <option value="{{user}}" selected>{{user}}</option>
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Celebrity:</label></td>
+                                <td><select id="cid" name="celebrityname" class="form-control selectpicker" data-live-search="true" data-width="fit" onchange="getcelebritydata(this.value)" required>
+                                <!-- select all celebrity from data base and display it -->
+                                    <option value="">Select</option>
+                                    {% for c in celebrity %}
+                                        <option value="{{c}}">{{c}}</option>
+                                    {%endfor%}
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Generic:</label></td>
+                                <td><select id="gid" name="genericname" class="form-control selectpicker" data-width="fit" required>
+                                    <!-- select Generic from data base and display it -->
+                                    <option value=''>select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">SKU Ids:</label></td>
+                                <td><select name="productidname" id="getproductid" class="form-control selectpicker" data-live-search="true" multiple required>
+                                    <option value="">Select</option> 
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Event Portal:</label></td>
+                               <td><select id="eventportal"  name="eventportalname" class="form-control selectpicker" data-width="fit" required>
+                                    <!-- select all event protals from data base and display it -->
+                                    <option value="">Select</option>
+                                    {% for ep in eventportal %}
+                                        <option value="{{ep}}">{{ep}}</option>
+                                    {%endfor%}
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Event Type:</label></td>
+                                <td><select id="eventtype" name="eventtypename" class="form-control selectpicker" data-width="fit" required>
+                                    <!-- select all celebrity from data base and display it -->
+                                    <option value="">Select</option>
+                                    {% for et in event_type %}
+                                        <option value="{{et}}">{{et}}</option>
+                                    {%endfor%}
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Event Class:</label></td>
+                                <td><select id="eventclass" name="eventclassname" class="form-control selectpicker" data-width="fit" required>
+                                    <!-- select all eventclass from data base and display it -->
+                                    <option value="">Select</option>
+                                    {% for ec in eventclass %}
+                                        <option value="{{ec}}">{{ec}}</option>
+                                    {%endfor%}
+                                </select></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Total Posts:</label></td>
+                                <td><input type="number" required name="total_post" value=""></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">BQ Posts:</label></td>
+                                <td><input type="number" required name="bq_post" value=""></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Event Date:</label></td>
+                                <td><input type="number" required name="bq_post" value=""></td>
+                        </div>
+                    </tr>
+                    <tr>
+                        <div class="col-md-8">
+                                <td><label class="required" for="id_user">Remark:</label></td>
+                                <td><textarea name="remarks" id="id_remarks" required cols="40" rows="10"></textarea></td>
+                        </div>
+                    </tr>
+            </form>
+        </table>
+        </div>
+        <br />
+            
+        <form method="POST" id="multiple_select_form" action="/events/preview/">
+        {% csrf_token %}
+                <input type="submit" value="Save" class="default" name="_save" />
+                <input type="submit" value="Save and add another" name="_addanother" />
+                <input type="submit" value="Save and continue editing" name="_continue" />
+        </form>
+    </body>
+</html>
+<script>
+
+function getcelebritydata()
+{
+  var celebrity=document.getElementById("cid").value;
+  console.log(celebrity)
+
+
+  $.ajax(
+  {
+    type: "Get",
+    url: "/events/getproduct",
+    data : {'celebrity':celebrity},
+    success:function(result)
+        {
+            $("#getproductid option").remove();
+            if(result.length==0)
+            {
+                console.log(result)
+                $("#getproductid").append('<option value=None>None</option>')
+            }
+            else
+            {
+                $("#getproductid").append('<option value=All>All</option>')
+                for (var i = result.length - 1; i >= 0; i--) 
+                {
+                  $("#getproductid").append('<option value='+result[i]+'>'+ result[i] +'</option>');
+                }
+            }
+
+
+ $(document).ready(function(){
+    $('.selectpicker').selectpicker();
+  });
+$('#getproductid').addClass('form_control selectpicker');
+$('#getproductid').attr('data-live-search', 'true');
+$('#getproductid').selectpicker('refresh');
+
+        }
+
+
+  });
+  
+};
+
+
+</script>
